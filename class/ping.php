@@ -18,7 +18,7 @@ function Ping($IP)
         }
         else
         {
-            return $status = print_r(get_headers($IPAddress)[0]); 
+            return $status = "<div class='text-danger'><b>". get_headers($IPAddress)[0] ."</b></div>"; print_r(get_headers($IPAddress)[0]); 
             fclose($fp);
         }
 }
