@@ -13,46 +13,36 @@ class Site
         $res = $conexao->query($query);
     }
 
-
-
-    public function Ping($IP,$PORTA)
-    {
-        $conexao = Conexao::fazConexao();
-        $query = "INSERT INTO sites SET url = '$site->url'";
-        $res = $conexao->query($query);
-
-        $IPAddress = $IP;
-        $Port = $PORTA;
-        $fp = @fsockopen ($IPAddress,$Port);
-
-            if(!$fp)
-            {
-                 return $status = "<div class='text-danger'><b>Offline</b></div>";
-            }
-            else
-            {
-                return $status = "<div class='text-success'><b>OK (200)</b></div>";
-                fclose($fp);
-            }
-    }
-
-
     public function sitesCadastrados(Site $site)
     {
         $conexao = Conexao::fazConexao();
-        $query = "SELECT * FROM sites LIMIT 100";
+        $query = "SELECT * FROM sites ORDER BY request DESC";
         $resultado = $conexao->query($query);
         $resultado = $resultado->fetchAll();
         return $resultado;
     }
-
-    public function puxaTodos(Site $site)
+    
+    public function sitesOnline(Site $site)
     {
         $conexao = Conexao::fazConexao();
-        $query = "SELECT * FROM sites  ";
+        $query = "SELECT * FROM sites WHERE request = 'HTTP/1.1 200 OK'";
         $resultado = $conexao->query($query);
         $resultado = $resultado->fetchAll();
         print_r(count($resultado));
+    }
+
+    public function sitesOff(Site $site)
+    {
+        $conexao = Conexao::fazConexao();
+        $query = "SELECT * FROM sites WHERE request = 'HTTP/1.1 200 OK'";
+        $query2 = "SELECT * FROM sites";
+        $resultado = $conexao->query($query);
+        $resultado2 = $conexao->query($query2);
+        $resultado = $resultado->fetchAll();
+        $resultado2 = $resultado2->fetchAll();
+        $resultado3 = count($resultado2) - count($resultado);
+  
+        print_r($resultado3);
     }
 
     public function importar(Site $site)

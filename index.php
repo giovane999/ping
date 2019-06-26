@@ -7,7 +7,7 @@
 <div class="container2">
 <div class="width_96">
 
-    <?php require_once("blocos/sites_cadastrados.php") ?>
+    <?php require_once("blocos/sites_cadastrados.php"); ?>
 </div>
 </div>
 

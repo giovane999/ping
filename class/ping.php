@@ -7,6 +7,11 @@ function Ping($IP)
      
     $fp = get_headers($IPAddress)[0] ; 
 
+    $status = $fp;
+    $conexao = Conexao::fazConexao();
+    $query = "UPDATE sites SET request = '$status' WHERE url = '$IP' " ;
+    $conexao->query($query);
+    
         if($fp == "HTTP/1.1 200 OK")
         {
             return $status = "<div class='text-success'><b>OK (200)</b></div>";
