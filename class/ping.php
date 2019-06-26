@@ -14,7 +14,7 @@ function Ping($IP)
     
         if($fp == "HTTP/1.1 200 OK")
         {
-            return $status = "<div class='text-success'><b>OK (200)</b></div>";
+            return $status = "<div class='text-success'><b>". get_headers($IPAddress)[0] ."</b></div>";
         }
         else
         {
